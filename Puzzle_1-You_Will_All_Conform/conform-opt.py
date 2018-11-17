@@ -1,8 +1,9 @@
-#Programming for the Puzzled -- Srini Devadas
-#You Will All Conform
-#Input is a vector of F's and B's, in terms of forwards and backwards caps
-#Output is a set of commands (printed out) to get either all F's or all B's
-#Fewest commands are the goal
+# MIT 6.S095 - Programming for the Puzzled - Srini Devadas
+# Puzzle 1 - You Will All Conform
+
+# Input is a vector of F's and B's, in terms of forwards and backwards caps.
+# Output is a set of commands (printed out) to get either all F's or all B's.
+# Fewest commands are the goal.
 
 caps = ['F', 'F', 'B', 'B', 'B', 'F', 'B', 'B', 'B', 'F', 'F', 'B', 'F' ]
 cap2 = ['F', 'F', 'B', 'B', 'B', 'F', 'B', 'B', 'B', 'F', 'F', 'F', 'F' ]
@@ -14,9 +15,9 @@ def pleaseConformOpt(caps):
     backward = 0
     intervals = []
 
-    caps = caps + ['END']
+    caps = caps + ['END'] # Add explicite end to caps array
 
-    #Determine intervals where caps are on in the same direction
+    # Determine intervals where caps are on in the same direction
     for i in range(1, len(caps)):
         if caps[start] != caps[i]:
             # each interval is a tuple with 3 elements (start, end, type)
@@ -41,12 +42,13 @@ def pleaseConformOpt(caps):
 def pleaseConformOnepass(caps):
     caps = caps + [caps[0]]
     for i in range(1, len(caps)):
-        if caps[i] != caps[i-1]:
+        if caps[i] != caps[i-1]: # ignor index where are the same directions (vs previous index) 
             if caps[i] != caps[0]:
-                print('People in positions', i, end='')
+                print('People in positions', i, end='') #end='' - do not print a new line with new print() 
+                # here i = start index of flip interval
             else:
                 print(' through', i-1, 'flip your caps!')
-
+                # here i = end index of flip interval
 
 pleaseConformOpt(caps)
 pleaseConformOnepass(caps)

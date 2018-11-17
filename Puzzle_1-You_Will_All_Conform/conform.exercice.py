@@ -45,8 +45,10 @@ def pleaseConform(caps):
     for t in intervals:
         if t[2] == flip:
             #Exercise: if t[0] == t[1] change the printing!
-            print ('People in positions', t[0],
-                   'through', t[1], 'flip your caps!')
+            if t[0] == t[1]:
+                print ('People at position', t[0], 'flip your caps!')
+            else:
+                print ('People in positions', t[0], 'through', t[1], 'flip your caps!')
 
 
 pleaseConform(caps1)

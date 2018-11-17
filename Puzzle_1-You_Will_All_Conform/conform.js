@@ -32,7 +32,8 @@ Fewest commands are the goal.
       start = i;
     }
   }
-  intervals.push({ start: start, end: caps.length - 1, type: caps[start] });
+  // Add the last interval after for loop completes execution
+    intervals.push({ start: start, end: caps.length - 1, type: caps[start] });
 
   // Count forward and backward intervals
   if (caps[start] === "F") {
@@ -47,7 +48,7 @@ Fewest commands are the goal.
 };
 
 /**
-  * * pleaseConform Version 2
+  * * pleaseConform Version 2 - optimized intervals generation
   * @param {string} caps - list of caps "F" (forward cap) or "B" (backward cap)
  */
 export const pleaseConformV2 = caps => {
@@ -56,11 +57,12 @@ export const pleaseConformV2 = caps => {
   let backward = 0;
   const intervals = [];
 
-  caps = [...caps, "END"];
+  caps = [...caps, "END"]; // Add explicite end to caps array
 
-  for (let i = 0; i < caps.length; i++) {
+  for (let i = 1; i < caps.length; i++) {
     if (caps[i] != caps[start]) {
       intervals.push({ start: start, end: i - 1, type: caps[start] });
+      
       // Count forward and backward intervals
       if (caps[start] === "F") {
         forward++;
@@ -76,13 +78,15 @@ export const pleaseConformV2 = caps => {
 };
 
 /**
-* pleaseConform - only one pass by caps vector
+* pleaseConformOnePass - only one pass by caps vector
 * @param {string} caps - list of caps "F" (forward cap) or "B" (backward cap)
  */
 export const pleaseConformOnePass = caps => {
-  caps = [...caps, caps[0]];
-  const intervals = [];
   let start = 0;
+  const intervals = [];
+  
+  caps = [...caps, caps[0]];  // Add the first cap to the end of caps array
+  
   for (let i = 1; i < caps.length; i++) {
     if (caps[i] != caps[i - 1]) {
       if (caps[i] != caps[0]) {
